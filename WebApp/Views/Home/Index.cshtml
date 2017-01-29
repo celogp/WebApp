@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = "Produtos";
+}
+
+<div class="alert alert-success">
+    <h2>Products</h2>
+</div>
+
+<div ng-controller="HomeController">
+
+    <div ng-show="frmShow">
+        <form name="formCrud" novalidate>
+            <button class="btn btn-primary btn-info" ng-click="btnSave()" ng-disabled="formCrud.$invalid">Save</button>
+            <button class="btn btn-primary btn-info" ng-click="btnSearch()">Search</button>
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" id="frmName" name="frmName" class="form-control" placeholder="Name" ng-model="product.Name" required>
+                <p ng-show="formCrud.frmName.$invalid && formCrud.frmCategoryId.$touched" class="help-block">name is required.</p>
+            </div>
+            <div class="form-group">
+                <label>Categoria</label>
+                <select class="form-control" ng-model="product.CategoryId" name="frmCategoryId" required>
+                    <option ng-repeat="cat in listCate" value="{{cat.Id}}" ng-selected="cat.Id == product.CategoryId" >{{cat.Name}}</option>
+                </select>
+                <p ng-show="formCrud.frmCategoryId.$invalid && !formCrud.frmCategoryId.$pristine" class="help-block">Categorie is required.</p>
+            </div>
+            <div class="form-group">
+                <label>Price</label>
+                <input type="number" id="frmPrice" name="frmPrice" class="form-control" placeholder="Price" ng-model="product.Price" required>
+                <p ng-show="formCrud.frmPrice.$invalid && !formCrud.frmPrice.$pristine" class="help-block">Price is required.</p>
+            </div>
+        </form>
+    </div>
+    <div ng-show="lstShow" >
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-8">
+                <button class="btn btn-primary btn-success" ng-click="btnForm()">Create</button>
+            </div><!-- /.col-lg-6 -->
+            <div class="col-xs-6 col-md-4">
+                <div class="input-group container-fluid">
+                    <input type="text" class="form-control" placeholder="Filter for name..." name="prodFilter" ng-model="prodFilter">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" ng-click="btnFilter()"><span class="glyphicon glyphicon-filter" aria-hidden="true"></span>Filter</button>
+                    </span>
+                </div><!-- /input-group -->
+            </div><!-- /.col-lg-6 -->
+        </div><!-- /.row -->
+
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>CategoryId</th>
+                    <th>Price</th>
+                    <th>Options</th>
+                </tr>
+            </thead>
+            <tr ng-repeat="prod in listProd">
+                <td>{{ prod.Id }}</td>
+                <td>{{ prod.Name }}</td>
+                <td>{{ prod.CategoryId }}</td>
+                <td>{{prod.Price | currency:"R$ "}}</td>
+                <td>
+                    <span class="buttons btn-group-xs">
+                        <button class="btn btn-primary btn-info" ng-click="btnEdit(prod.Id)">Edit</button>
+                        <button class="btn btn-primary btn-danger " ng-click="btnErase(prod.Id)">Erase</button>
+                    </span>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
