@@ -1,46 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.Http;
 
 namespace WebApp.Models
 {
     public class Product : IProduct
     {
         ProdDBContext db = new ProdDBContext();
-        private string NameCat;
 
-        public int CategoryId { get; set; }
-        public int Id { get;  set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
+        public int CategoryId { get; set; }
 
-        //public class LstProduct : Product
-        //{
-        //    public string NameCat { get; set; } //não vai para o banco de dados, mas não funciona a consulta.
-        //}
-
-        public IQueryable<Product> GetAll(string name)
+        public IQueryable<ProductSearch> GetAll(string name)
         {
-            IQueryable<Product> lista;
+            IQueryable<ProductSearch> lstFull;
+
             if (name == null)
             {
-                lista = db.Products.AsQueryable().OrderByDescending(Product => Product.Id).Take(5);
+                lstFull = (from cate in db.Categories
+                           join prod in db.Products on cate.Id equals prod.CategoryId
+                           select new ProductSearch() { Id = prod.Id, Name = prod.Name, CategoryId = prod.CategoryId, Price = prod.Price, NameCategory = cate.Name }
+                        )
+                        .OrderByDescending(Product => Product.Id).Take(5)
+                        .Select(x => new ProductSearch() { Id = x.Id, Name = x.Name, CategoryId = x.CategoryId, Price = x.Price, NameCategory = x.NameCategory }).AsQueryable();
             }
             else
             {
-                lista = (from product in db.Products where product.Name.Contains(name) select product)
-                .OrderByDescending(Product => Product.Id);
+                lstFull = (from cate in db.Categories
+                           join prod in db.Products on cate.Id equals prod.CategoryId
+                           where prod.Name.Contains(name)
+                           select new ProductSearch() { Id = prod.Id, Name = prod.Name, CategoryId = prod.CategoryId, Price = prod.Price, NameCategory = cate.Name }
+                        )
+                        .OrderByDescending(Product => Product.Id).Take(5)
+                        .Select(x => new ProductSearch() { Id = x.Id, Name = x.Name, CategoryId = x.CategoryId, Price = x.Price, NameCategory = x.NameCategory }).AsQueryable();
             }
-            //lista = (from cate in db.Categories
-            //         join prod in db.Products on cate.Id equals prod.CategoryId
-            //         select new { Id = prod.Id, Name = prod.Name, CategoryId = prod.CategoryId, Price = prod.Price, NameCat = cate.Name }
-            //        ).AsQueryable()
-            //        .Select(x => new Product() { Id = x.Id, Name = x.Name, CategoryId = x.CategoryId, Price = x.Price, NameCat = x.Name });
-
             try
             {
-                return lista;
+                return lstFull;
             }
             catch ( Exception ex)
             {
@@ -106,4 +104,5 @@ namespace WebApp.Models
             }
         }
     }
+
 }

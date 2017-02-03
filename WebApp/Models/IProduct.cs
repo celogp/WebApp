@@ -7,8 +7,7 @@ namespace WebApp.Models
     public interface IProduct
     {
         void Add(Product item);
-        IQueryable<Product> GetAll(string name);
-        
+        IQueryable<ProductSearch> GetAll(string name);
         Product Find(int key);
         void Remove(Product item);
         void Update(Product item);

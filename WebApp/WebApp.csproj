@@ -159,6 +159,7 @@
     <Compile Include="Models\IProduct.cs" />
     <Compile Include="Models\ProdDBContext.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\ProductSearch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

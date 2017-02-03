@@ -13,7 +13,7 @@ namespace WebApp.Controllers
         // GET: api/Products
         [AcceptVerbs("GET")]
         [Route("AllProducts")]
-        public IQueryable<Product> GetProducts()
+        public IQueryable<ProductSearch> GetProducts()
         {
             return _Product.GetAll(null);
         }
@@ -21,7 +21,7 @@ namespace WebApp.Controllers
         // GET: api/Products/namexxx
         [AcceptVerbs("GET")]
         [Route("AllProductsForNome/{name:alpha}")]
-        public IQueryable<Product> GetProducts(string name)
+        public IQueryable<ProductSearch> GetProducts(string name)
         {
             return _Product.GetAll(name);
         }
