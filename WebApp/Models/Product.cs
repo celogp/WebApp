@@ -23,8 +23,8 @@ namespace WebApp.Models
                            join prod in db.Products on cate.Id equals prod.CategoryId
                            select new ProductSearch() { Id = prod.Id, Name = prod.Name, CategoryId = prod.CategoryId, Price = prod.Price, NameCategory = cate.Name }
                         )
-                        .OrderByDescending(Product => Product.Id).Take(5)
-                        .Select(x => new ProductSearch() { Id = x.Id, Name = x.Name, CategoryId = x.CategoryId, Price = x.Price, NameCategory = x.NameCategory }).AsQueryable();
+                        .Take(5)
+                        .OrderByDescending(Product => Product.Id);
             }
             else
             {
@@ -33,8 +33,8 @@ namespace WebApp.Models
                            where prod.Name.Contains(name)
                            select new ProductSearch() { Id = prod.Id, Name = prod.Name, CategoryId = prod.CategoryId, Price = prod.Price, NameCategory = cate.Name }
                         )
-                        .OrderByDescending(Product => Product.Id).Take(5)
-                        .Select(x => new ProductSearch() { Id = x.Id, Name = x.Name, CategoryId = x.CategoryId, Price = x.Price, NameCategory = x.NameCategory }).AsQueryable();
+                        .Take(5)
+                        .OrderByDescending(Product => Product.Id);
             }
             try
             {
