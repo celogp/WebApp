@@ -143,9 +143,9 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\PersonController.cs" />
+    <Compile Include="Controllers\ApiController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -153,10 +153,16 @@
     <Compile Include="Migrations\201701222214027_InitialCreate.Designer.cs">
       <DependentUpon>201701222214027_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702060104173_UpdateDatabase.cs" />
+    <Compile Include="Migrations\201702060104173_UpdateDatabase.Designer.cs">
+      <DependentUpon>201702060104173_UpdateDatabase.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\ICategory.cs" />
+    <Compile Include="Models\IPerson.cs" />
     <Compile Include="Models\IProduct.cs" />
+    <Compile Include="Models\Person.cs" />
     <Compile Include="Models\ProdDBContext.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductSearch.cs" />
@@ -169,6 +175,7 @@
     <Content Include="Scripts\angular-route.min.js.map" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
+    <Content Include="Views\Person\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -182,6 +189,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201701222214027_InitialCreate.resx">
       <DependentUpon>201701222214027_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702060104173_UpdateDatabase.resx">
+      <DependentUpon>201702060104173_UpdateDatabase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

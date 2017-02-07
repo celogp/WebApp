@@ -5,12 +5,36 @@ using WebApp.Models;
 
 namespace WebApp.Controllers
 {
-    [RoutePrefix("api/Products")]
-    public class ProductsController : ApiController
+    [RoutePrefix("api")]
+    public class ApiController : System.Web.Http.ApiController
     {
+        //================================
+        //Classes
         private Product _Product = new Product();
+        private Category _Category = new Category();
+        private Person _Person = new Person();
 
-        // GET: api/Products
+        //================================
+        // GET: api/metodo
+        [AcceptVerbs("GET")]
+        [Route("AllPerson")]
+        public IQueryable<Person> GetPerson(string name)
+        {
+            return _Person.GetAll(name);
+        }
+
+        //================================
+        // GET: api/metodo
+        [AcceptVerbs("GET")]
+        [Route("AllCategories")]
+        public IQueryable<Category> GetCategories()
+        {
+            return _Category.GetAll();
+        }
+
+
+        //================================
+        // GET: api/metodo
         [AcceptVerbs("GET")]
         [Route("AllProducts")]
         public IQueryable<ProductSearch> GetProducts()
@@ -18,7 +42,7 @@ namespace WebApp.Controllers
             return _Product.GetAll(null);
         }
 
-        // GET: api/Products/namexxx
+        // GET: api/metodo/namexxx
         [AcceptVerbs("GET")]
         [Route("AllProductsForNome/{name:alpha}")]
         public IQueryable<ProductSearch> GetProducts(string name)
@@ -26,7 +50,7 @@ namespace WebApp.Controllers
             return _Product.GetAll(name);
         }
 
-        // GET: api/Products/5
+        // GET: api/metodo/5
         [AcceptVerbs("GET")]
         [Route("ProductForId/{id:int}")]
         [ResponseType(typeof(Product))]
@@ -40,7 +64,7 @@ namespace WebApp.Controllers
             return Ok(product);
         }
 
-        // PUT: api/Products/5
+        // PUT: api/metodo/5
         [AcceptVerbs("PUT")]
         [Route("SaveProduct/{id:int}")]
         [ResponseType(typeof(void))]
@@ -67,7 +91,7 @@ namespace WebApp.Controllers
             return Json(new { Message = "Edit to sucess!" });
         }
 
-        // POST: api/Products
+        // POST: api/metodo
         [AcceptVerbs("POST")]
         [Route("AddProduct")]
         [ResponseType(typeof(Product))]
@@ -88,7 +112,7 @@ namespace WebApp.Controllers
             return Json(new { Message = "Product add to Sucess!" });
         }
 
-        // DELETE: api/Products/5
+        // DELETE: api/metodo/5
         [AcceptVerbs("DELETE")]
         [Route("EraseProduct/{id:int}")]
         [ResponseType(typeof(Product))]
@@ -104,5 +128,6 @@ namespace WebApp.Controllers
 
             return Json(new { Message = "Erase to Sucess" });
         }
+
     }
 }

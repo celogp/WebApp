@@ -6,5 +6,7 @@ namespace WebApp.Models
     {
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
+
+        public DbSet<Person> Person { get; set; }
     }
 }

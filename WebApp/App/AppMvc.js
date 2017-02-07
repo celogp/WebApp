@@ -4,41 +4,41 @@
     var App = angular.module("App", []);
 
     App.factory('dataFactory', ['$http', function ($http) {
-        var urlBase = 'http://localhost:50924/api/';
+        var urlBase = 'http://localhost:50924/api';
         var dataFactory = {};
 
         dataFactory.getCategories = function () {
-            var urlLocal = 'categorias/consultarCategorias';
+            var urlLocal = '/AllCategories';
             return $http.get(urlBase + urlLocal);
         };
 
         dataFactory.getProdutos = function () {
-            var urlLocal = 'products/AllProducts';
+            var urlLocal = '/AllProducts';
             return $http.get(urlBase + urlLocal);
         };
 
         dataFactory.getProdutosName = function (name) {
-            var urlLocal = 'products/AllProductsForNome';
+            var urlLocal = '/AllProductsForNome';
             return $http.get(urlBase + urlLocal + '/' + name);
         };
 
         dataFactory.AddProduct = function (product) {
-            var urlLocal = 'products/AddProduct';
+            var urlLocal = '/AddProduct';
             return $http.post(urlBase + urlLocal, product);
         }
 
         dataFactory.SaveProduct = function (Id, product) {
-            var urlLocal = 'products/SaveProduct';
+            var urlLocal = '/SaveProduct';
             return $http({ url: urlBase + urlLocal + '/' + Id, method: 'PUT', data: product });
         }
 
         dataFactory.EditProduct = function (Id) {
-            var urlLocal = 'products/ProductForId';
+            var urlLocal = '/ProductForId';
             return $http.get(urlBase + urlLocal + '/' + Id);
         }
 
         dataFactory.EraseProduct = function (Id) {
-            var urlLocal = 'products/EraseProduct';
+            var urlLocal = '/EraseProduct';
             return $http({ url: urlBase + urlLocal + '/' + Id, method : 'DELETE' });
         }
         return dataFactory;
@@ -150,6 +150,16 @@
                 $scope.btnAddShow = false;
             });
         };
+    }]);
+
+    App.controller("PersonController", ["$scope", "dataFactory", function ($scope, dataFactory) {
+        $scope.person = { Id: 0, namePerson: ''};
+        $scope.prodFilter = '';
+        $scope.listPers = [];
+        $scope.frmShow = false;
+        $scope.lstShow = true;
+        $scope.btnAddShow = false;
+
     }]);
 
 
